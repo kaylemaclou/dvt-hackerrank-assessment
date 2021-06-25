@@ -5,7 +5,7 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import { deezerAppTheme } from './theme/deezer-app-theme';
 import DeezerAppBar from './components/DeezerAppBar';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-//import MainView from './components/MainView.tsx--temp';
+import MainView from './components/MainView';
 //import ArtistView from './components/ArtistView';
 
 function App() {
@@ -26,7 +26,7 @@ function App() {
           </Route>
           <Switch>
             <Route path="/" exact>
-              {/* {<MainView />} */}
+              <MainView />
             </Route>
             <Route path="/artist">{/*<ArtistView />*/}</Route>
           </Switch>
