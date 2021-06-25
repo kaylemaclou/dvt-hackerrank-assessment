@@ -6,62 +6,67 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 
-import { useState, useEffect } from 'react';
-
 const useStyles = makeStyles({
   root: {
     maxWidth: 240,
-    margin: 'auto',
+    margin: '0 auto',
     transition: '0.3s',
     boxShadow: '0 8px 40px -12px rgba(0,0,0,0.3)',
     '&:hover': {
       boxShadow: '0 16px 70px -12.125px rgba(0,0,0,0.3)'
-    }
+    },
+    fontFamily: 'calibri'
   }
 });
 
-export default function CardView(props: any) {
-  const [isErrorInFetch, setIsErrorInFetch] = useState(false);
-  const [localTime, setLocalTime] = useState('...');
+interface propTypes {
+  titleId: number;
+  imageUrl: string;
+  titleText: string;
+  detailTextLine1: string;
+  detailTextLine2: string;
+}
 
+export default function CardView({
+  titleId,
+  imageUrl,
+  titleText,
+  detailTextLine1,
+  detailTextLine2
+}: propTypes) {
   const classes = useStyles();
 
-  async function fetchData() {
-    const res = await fetch(
-      `http://worldtimeapi.org/api/timezone/${props.timezone}`
-    );
-    res
-      .json()
-      .then((res) => {})
-      .catch((err) => setIsErrorInFetch(err));
-  }
-
-  // useEffect(() => {
-  //   fetchData();
-  //   setInterval(fetchData, 10000);
-  // }, []);
-
   return (
-    <Card className={classes.root}>
+    <Card key={titleId} className={classes.root}>
       <CardActionArea>
         <CardMedia
           component="img"
-          alt={props.companyName}
+          alt={titleText}
           height="140"
-          image={'./images/companies/' + props.isoCountryCode + '.png'}
-          title={props.companyName}
+          image={imageUrl}
+          title={titleText}
         />
         <CardContent>
-          <Typography gutterBottom variant="overline" component="h2">
-            {props.companyName}
-          </Typography>
           <Typography
-            gutterBottom
-            variant="button"
-            component="h2"
+            variant="subtitle1"
+            component="p"
             style={{ fontFamily: 'calibri', fontWeight: 'bold' }}
           >
-            {localTime}
+            {titleText}
+          </Typography>
+          <Typography
+            variant="subtitle2"
+            component="p"
+            style={{ fontFamily: 'calibri', fontWeight: 'bold' }}
+          >
+            {detailTextLine1}
+          </Typography>
+          <Typography
+            variant="subtitle2"
+            component="p"
+            style={{ fontFamily: 'calibri', fontWeight: 'bold' }}
+          >
+            {detailTextLine2}
           </Typography>
         </CardContent>
       </CardActionArea>
