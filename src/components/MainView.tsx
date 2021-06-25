@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import { Grid, Typography } from '@material-ui/core';
+import { Button, Grid, TextField, Typography } from '@material-ui/core';
 //import CardView from './CardView.tsx';
 import DeezerApiHttpClient from '../services/deezer-api-client-service';
 
@@ -44,16 +44,29 @@ export default function MainView() {
 
   return (
     <div className={classes.root} style={{ flex: 9 }}>
-      <Paper className={classes.root}>
-        <Typography
-          className={classes.title}
-          variant="h6"
-          id="tableTitle"
-          component="div"
-          style={{ color: '#00A1E0' }}
+      <Paper
+        className={classes.title}
+        style={{ marginTop: '1.6em', verticalAlign: 'center' }}
+      >
+        <TextField
+          id="outlined-basic"
+          label="Type here to find music..."
+          variant="filled"
+          style={{ width: '80%', marginTop: '' }}
+        />
+        {/* <Button onClick={props.closeHandler} color="primary"> */}
+        <Button
+          color="primary"
+          style={{
+            width: '20%',
+            height: 56,
+            border: '.4rem solid red',
+            color: 'yellow',
+            background: '#00A1E0'
+          }}
         >
-          Find Music:
-        </Typography>
+          Search
+        </Button>
       </Paper>
 
       <Grid
