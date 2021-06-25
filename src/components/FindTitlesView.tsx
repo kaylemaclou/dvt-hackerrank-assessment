@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import { Paper, TextField, Button } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   paperContainer: {
     flex: '1 1 80%',
-    margin: '.5rem 2rem',
-    marginTop: '1.6em',
-    verticalAlign: 'center'
+    verticalAlign: 'center',
+    margin: '.5rem 1.6rem',
+    border: '0px dotted #00A1E0'
   },
-  searchCriterionTextField: { width: '80%' },
+  searchCriterionTextField: { width: '80%', border: 0 },
   searchButton: {
     width: '20%',
     height: 56,
-    border: '.4rem solid red',
-    color: 'yellow',
-    background: '#00A1E0'
+    border: '2px dotted #00A1E0',
+    color: '#00A1E0',
+    background: 'yellow'
   }
 }));
 

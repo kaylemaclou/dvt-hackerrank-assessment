@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import { Button, Grid, TextField, Typography } from '@material-ui/core';
-//import CardView from './CardView.tsx';
-import DeezerApiHttpClient from '../services/deezer-api-client-service';
+import DeezerApiHttpClient from '../services/DeezerApiHttpClient';
+import FindTitlesView from './FindTitlesView';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -13,17 +12,6 @@ const useStyles = makeStyles((theme) => ({
     overflowX: 'hidden',
     backgroundImage: 'linear-gradient(90deg, #0033A1, #00A1E0);',
     color: 'yellow'
-  },
-
-  title: {
-    flex: '1 1 80%',
-    margin: '.5rem 2rem'
-  },
-  container: { backgroundColor: 'transparent' },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: 'center',
-    color: theme.palette.text.secondary
   },
   gridContainer: {
     padding: '2rem'
@@ -37,6 +25,7 @@ export default function MainView() {
     try {
       const titlesFound: Array<Object> =
         await DeezerApiHttpClient.searchForTitle(searchString);
+      console.log(titlesFound);
     } catch (error) {
       alert(`An error occured whilst searching for titles. ${error.message}`);
     }
@@ -44,31 +33,9 @@ export default function MainView() {
 
   return (
     <div className={classes.root} style={{ flex: 9 }}>
-      <Paper
-        className={classes.title}
-        style={{ marginTop: '1.6em', verticalAlign: 'center' }}
-      >
-        <TextField
-          id="outlined-basic"
-          label="Type here to find music..."
-          variant="filled"
-          style={{ width: '80%', marginTop: '' }}
-        />
-        {/* <Button onClick={props.closeHandler} color="primary"> */}
-        <Button
-          color="primary"
-          style={{
-            width: '20%',
-            height: 56,
-            border: '.4rem solid red',
-            color: 'yellow',
-            background: '#00A1E0'
-          }}
-        >
-          Search
-        </Button>
-      </Paper>
-
+      <FindTitlesView
+        searchButtonClickHandler={findTitlesMatchingSearchString}
+      />
       <Grid
         container
         spacing={4}

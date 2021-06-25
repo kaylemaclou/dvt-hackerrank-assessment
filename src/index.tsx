@@ -7,6 +7,9 @@ import * as serviceWorker from './serviceWorker';
 
 console.log('process.env.NODE_ENV');
 console.log(process.env.NODE_ENV);
+console.log('process.env.REACT_APP_DEEZER_API_BASE_URL');
+console.log(process.env.REACT_APP_DEEZER_API_BASE_URL);
+
 ReactDOM.render(
   <React.StrictMode>
     <App />
