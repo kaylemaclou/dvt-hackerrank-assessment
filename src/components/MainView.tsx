@@ -6,6 +6,7 @@ import DeezerApiHttpClient from '../services/DeezerApiHttpClient';
 import FindTitlesView from './FindTitlesView';
 import CardView from './CardView';
 import Title from '../model/Title';
+import AlbumView from './AlbumView';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,10 +26,12 @@ const useStyles = makeStyles((theme) => ({
 export default function MainView() {
   const classes = useStyles();
   const [titles, setTitles] = useState<Array<Title>>([]);
+  const [selectedTitle, setSelectedTitle] = useState<Title>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [isErrorSnackbarOpen, setIsErrorSnackbarOpen] =
     useState<boolean>(false);
+  const [isAlbumViewOpen, setIsAlbumViewOpen] = useState<boolean>(false);
 
   async function findTitlesMatchingSearchString(searchString: string) {
     try {
@@ -81,11 +84,21 @@ export default function MainView() {
                   title={title.description as string}
                   subtitle1={`by ${title.artistName}`}
                   subtitle2={title.formatedDuration as string}
+                  onClickHandler={() => {
+                    setSelectedTitle(title);
+                    setIsAlbumViewOpen(true);
+                  }}
                 />
               </Grid>
             ))}
         </Grid>
       </div>
+
+      <AlbumView
+        isOpen={isAlbumViewOpen}
+        title={selectedTitle as Title}
+        closeHandler={() => setIsAlbumViewOpen(false)}
+      />
 
       <Snackbar
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}

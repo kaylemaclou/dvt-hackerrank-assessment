@@ -12,66 +12,52 @@ export default class DeezerApiHttpClient {
             headers: new Headers({})
           }
         ).then((response) =>
-          response
-            .json()
-            .then((rawTitlesData) => {
-              console.log(rawTitlesData.data);
-              return rawTitlesData.data.map(
-                (rawTitleData: any) =>
-                  new Title(
-                    rawTitleData['md5_image'] as string,
-                    rawTitleData['title'] as string,
-                    rawTitleData['artist']['name'] as string,
-                    parseInt(rawTitleData['duration']) as number
-                  )
-              );
-            })
-            .catch((error) => {
-              throw new Error(
-                `Unable to call the Deezer API. ${error.message}`
-              );
-            })
+          response.json().then((rawTitlesData) => {
+            console.log(rawTitlesData.data);
+            return rawTitlesData.data.map(
+              (rawTitleData: any) =>
+                new Title(
+                  rawTitleData['md5_image'] as string,
+                  rawTitleData['title'] as string,
+                  rawTitleData['artist']['name'] as string,
+                  parseInt(rawTitleData['duration']) as number
+                )
+            );
+          })
         );
         resolve(titles);
       } catch (error) {
-        throw new Error(`Unable to call Deezer API. ${error.message}`);
+        reject(new Error(`Unable to call Deezer API. ${error.message}`));
       }
     });
   }
 
-  static getTrackForAlbum(tracksUrl: string): Promise<Array<Track>> {
+  static getTracksForAlbum(tracksUrl: string): Promise<Array<Track>> {
     return new Promise<Array<Track>>(async (resolve, reject) => {
       try {
-        const titles: Array<Track> = await fetch(
+        const tracks: Array<Track> = await fetch(
           `${process.env.REACT_APP_CORS_PROXY_URL}${tracksUrl}`,
           {
             method: 'GET',
             headers: new Headers({})
           }
         ).then((response) =>
-          response
-            .json()
-            .then((rawTracksData) => {
-              console.log(rawTracksData.data);
-              return rawTracksData.data.map(
-                (rawTrackData: any) =>
-                  new Track(
-                    rawTrackData['id'] as string,
-                    rawTrackData['track_position'] as number,
-                    rawTrackData['title'] as string,
-                    parseInt(rawTrackData['duration']) as number
-                  )
-              );
-            })
-            .catch((error) => {
-              throw new Error(
-                `Unable to call the Deezer API. ${error.message}`
-              );
-            })
+          response.json().then((rawTracksData) => {
+            console.log(rawTracksData.data);
+            return rawTracksData.data.map(
+              (rawTrackData: any) =>
+                new Track(
+                  rawTrackData['id'] as string,
+                  rawTrackData['track_position'] as number,
+                  rawTrackData['title'] as string,
+                  parseInt(rawTrackData['duration']) as number
+                )
+            );
+          })
         );
-        resolve(titles);
+        resolve(tracks);
       } catch (error) {
-        throw new Error(`Unable to call Deezer API. ${error.message}`);
+        reject(new Error(`Unable to call Deezer API. ${error.message}`));
       }
     });
   }

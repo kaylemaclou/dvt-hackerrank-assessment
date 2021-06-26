@@ -1,4 +1,4 @@
-export default class Title {
+export default class Track {
   public uniqueKey? = <string>'';
   public position? = <number>0;
   public title? = <string>'';

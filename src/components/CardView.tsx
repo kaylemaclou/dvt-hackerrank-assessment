@@ -25,6 +25,7 @@ interface propTypes {
   title: string;
   subtitle1: string;
   subtitle2: string;
+  onClickHandler: () => void;
 }
 
 export default function CardView({
@@ -32,20 +33,15 @@ export default function CardView({
   imageUrl,
   title,
   subtitle1,
-  subtitle2
+  subtitle2,
+  onClickHandler
 }: propTypes) {
   const classes = useStyles();
 
   return (
-    <Card key={uniqueKey} className={classes.root}>
+    <Card key={uniqueKey} className={classes.root} onClick={onClickHandler}>
       <CardActionArea>
-        <CardMedia
-          component="img"
-          alt={title}
-          height="140"
-          image={imageUrl}
-          title={title}
-        />
+        <CardMedia component="img" alt={title} image={imageUrl} title={title} />
         <CardContent>
           <Typography
             variant="subtitle1"
