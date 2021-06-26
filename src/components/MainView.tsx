@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Grid, Snackbar } from '@material-ui/core';
+import { Grid, LinearProgress, Snackbar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Alert } from '@material-ui/lab';
 import DeezerApiHttpClient from '../services/DeezerApiHttpClient';
@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
 export default function MainView() {
   const classes = useStyles();
   const [titles, setTitles] = useState<Array<Object>>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [isErrorSnackbarOpen, setIsErrorSnackbarOpen] =
     useState<boolean>(false);
@@ -30,8 +31,10 @@ export default function MainView() {
   async function findTitlesMatchingSearchString(searchString: string) {
     try {
       if (!searchString.trim()) return;
+      setIsLoading(true);
       const titlesFound: Array<Object> =
         await DeezerApiHttpClient.searchForTitles(searchString);
+      setIsLoading(false);
       //@ts-ignore
       if (titlesFound['error']) {
         setTitles([]);
@@ -59,6 +62,7 @@ export default function MainView() {
         <FindTitlesView
           searchButtonClickHandler={findTitlesMatchingSearchString}
         />
+        {isLoading && <LinearProgress style={{ marginTop: '10rem' }} />}
         <Grid
           container
           spacing={4}
@@ -80,8 +84,10 @@ export default function MainView() {
                   titleText={title['title']}
                   //@ts-ignore
                   detailTextLine1={`By ${title['artist']['name']}`}
-                  //@ts-ignore
-                  detailTextLine2={`${title['duration']} minutes`}
+                  detailTextLine2={`${Math.round(
+                    //@ts-ignore
+                    parseInt(title['duration']) / 60
+                  )} minutes`}
                 />
               </Grid>
             ))}
