@@ -1,11 +1,12 @@
 import Title from '../model/Title';
+import Track from '../model/Track';
 
 export default class DeezerApiHttpClient {
   static searchForTitles(searchString: string): Promise<Array<Title>> {
     return new Promise<Array<Title>>(async (resolve, reject) => {
       try {
         const titles: Array<Title> = await fetch(
-          `${process.env.REACT_APP_DEEZER_API_BASE_URL}/search?q=${searchString}`,
+          `${process.env.REACT_APP_CORS_PROXY_URL}${process.env.REACT_APP_DEEZER_API_BASE_URL}/search?q=${searchString}`,
           {
             method: 'GET',
             headers: new Headers({})
@@ -22,6 +23,43 @@ export default class DeezerApiHttpClient {
                     rawTitleData['title'] as string,
                     rawTitleData['artist']['name'] as string,
                     parseInt(rawTitleData['duration']) as number
+                  )
+              );
+            })
+            .catch((error) => {
+              throw new Error(
+                `Unable to call the Deezer API. ${error.message}`
+              );
+            })
+        );
+        resolve(titles);
+      } catch (error) {
+        throw new Error(`Unable to call Deezer API. ${error.message}`);
+      }
+    });
+  }
+
+  static getTrackForAlbum(tracksUrl: string): Promise<Array<Track>> {
+    return new Promise<Array<Track>>(async (resolve, reject) => {
+      try {
+        const titles: Array<Track> = await fetch(
+          `${process.env.REACT_APP_CORS_PROXY_URL}${tracksUrl}`,
+          {
+            method: 'GET',
+            headers: new Headers({})
+          }
+        ).then((response) =>
+          response
+            .json()
+            .then((rawTracksData) => {
+              console.log(rawTracksData.data);
+              return rawTracksData.data.map(
+                (rawTrackData: any) =>
+                  new Track(
+                    rawTrackData['id'] as string,
+                    rawTrackData['track_position'] as number,
+                    rawTrackData['title'] as string,
+                    parseInt(rawTrackData['duration']) as number
                   )
               );
             })
