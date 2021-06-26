@@ -13,8 +13,9 @@ export default class DeezerApiHttpClient {
         ).then((response) =>
           response
             .json()
-            .then((rawTitlesData) =>
-              rawTitlesData.data.map(
+            .then((rawTitlesData) => {
+              console.log(rawTitlesData.data);
+              return rawTitlesData.data.map(
                 (rawTitleData: any) =>
                   new Title(
                     rawTitleData['md5_image'] as string,
@@ -22,8 +23,8 @@ export default class DeezerApiHttpClient {
                     rawTitleData['artist']['name'] as string,
                     parseInt(rawTitleData['duration']) as number
                   )
-              )
-            )
+              );
+            })
             .catch((error) => {
               throw new Error(
                 `Unable to call the Deezer API. ${error.message}`
