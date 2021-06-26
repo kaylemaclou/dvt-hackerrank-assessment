@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/dvt-hackerrank-assessment/static/css/main.36497136.chunk.css",
+    "main.js": "/dvt-hackerrank-assessment/static/js/main.598cb2ea.chunk.js",
+    "main.js.map": "/dvt-hackerrank-assessment/static/js/main.598cb2ea.chunk.js.map",
+    "runtime-main.js": "/dvt-hackerrank-assessment/static/js/runtime-main.10a885cb.js",
+    "runtime-main.js.map": "/dvt-hackerrank-assessment/static/js/runtime-main.10a885cb.js.map",
+    "static/css/2.88c8a330.chunk.css": "/dvt-hackerrank-assessment/static/css/2.88c8a330.chunk.css",
+    "static/js/2.5a3b06dc.chunk.js": "/dvt-hackerrank-assessment/static/js/2.5a3b06dc.chunk.js",
+    "static/js/2.5a3b06dc.chunk.js.map": "/dvt-hackerrank-assessment/static/js/2.5a3b06dc.chunk.js.map",
+    "index.html": "/dvt-hackerrank-assessment/index.html",
+    "precache-manifest.c38d9ce35e3a0366f0bafa3afcf056ba.js": "/dvt-hackerrank-assessment/precache-manifest.c38d9ce35e3a0366f0bafa3afcf056ba.js",
+    "service-worker.js": "/dvt-hackerrank-assessment/service-worker.js",
+    "static/css/2.88c8a330.chunk.css.map": "/dvt-hackerrank-assessment/static/css/2.88c8a330.chunk.css.map",
+    "static/css/main.36497136.chunk.css.map": "/dvt-hackerrank-assessment/static/css/main.36497136.chunk.css.map",
+    "static/js/2.5a3b06dc.chunk.js.LICENSE.txt": "/dvt-hackerrank-assessment/static/js/2.5a3b06dc.chunk.js.LICENSE.txt",
+    "static/media/index.css": "/dvt-hackerrank-assessment/static/media/roboto-latin-900-normal.bb1e4dc6.woff"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.10a885cb.js",
+    "static/css/2.88c8a330.chunk.css",
+    "static/js/2.5a3b06dc.chunk.js",
+    "static/css/main.36497136.chunk.css",
+    "static/js/main.598cb2ea.chunk.js"
+  ]
+}
