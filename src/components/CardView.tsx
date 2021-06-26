@@ -20,31 +20,31 @@ const useStyles = makeStyles({
 });
 
 interface propTypes {
-  titleId: number;
+  uniqueKey: string;
   imageUrl: string;
-  titleText: string;
-  detailTextLine1: string;
-  detailTextLine2: string;
+  title: string;
+  subtitle1: string;
+  subtitle2: string;
 }
 
 export default function CardView({
-  titleId,
+  uniqueKey,
   imageUrl,
-  titleText,
-  detailTextLine1,
-  detailTextLine2
+  title,
+  subtitle1,
+  subtitle2
 }: propTypes) {
   const classes = useStyles();
 
   return (
-    <Card key={titleId} className={classes.root}>
+    <Card key={uniqueKey} className={classes.root}>
       <CardActionArea>
         <CardMedia
           component="img"
-          alt={titleText}
+          alt={title}
           height="140"
           image={imageUrl}
-          title={titleText}
+          title={title}
         />
         <CardContent>
           <Typography
@@ -52,21 +52,21 @@ export default function CardView({
             component="p"
             style={{ fontFamily: 'calibri', fontWeight: 'bold' }}
           >
-            {titleText}
+            {title}
           </Typography>
           <Typography
             variant="subtitle2"
             component="p"
             style={{ fontFamily: 'calibri', fontWeight: 'bold' }}
           >
-            {detailTextLine1}
+            {subtitle1}
           </Typography>
           <Typography
             variant="subtitle2"
             component="p"
             style={{ fontFamily: 'calibri', fontWeight: 'bold' }}
           >
-            {detailTextLine2}
+            {subtitle2}
           </Typography>
         </CardContent>
       </CardActionArea>

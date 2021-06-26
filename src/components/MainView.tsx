@@ -5,6 +5,7 @@ import { Alert } from '@material-ui/lab';
 import DeezerApiHttpClient from '../services/DeezerApiHttpClient';
 import FindTitlesView from './FindTitlesView';
 import CardView from './CardView';
+import Title from '../model/Title';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -13,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
     overflowY: 'auto',
     overflowX: 'hidden',
     backgroundImage: 'linear-gradient(90deg, #0033A1, #00A1E0);',
+    textAlign: 'center',
     color: 'yellow'
   },
   gridContainer: {
@@ -22,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MainView() {
   const classes = useStyles();
-  const [titles, setTitles] = useState<Array<Object>>([]);
+  const [titles, setTitles] = useState<Array<Title>>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [isErrorSnackbarOpen, setIsErrorSnackbarOpen] =
@@ -32,7 +34,7 @@ export default function MainView() {
     try {
       if (!searchString.trim()) return;
       setIsLoading(true);
-      const titlesFound: Array<Object> =
+      const titlesFound: Array<Title> =
         await DeezerApiHttpClient.searchForTitles(searchString);
       setIsLoading(false);
       //@ts-ignore
@@ -46,7 +48,7 @@ export default function MainView() {
       } else {
         console.log(titlesFound);
         //@ts-ignore
-        setTitles(titlesFound['data']);
+        setTitles(titlesFound);
       }
     } catch (error) {
       setErrorMessage(
@@ -58,11 +60,11 @@ export default function MainView() {
 
   return (
     <>
+      {isLoading && <LinearProgress />}
       <div className={classes.root} style={{ flex: 9 }}>
         <FindTitlesView
           searchButtonClickHandler={findTitlesMatchingSearchString}
         />
-        {isLoading && <LinearProgress style={{ marginTop: '10rem' }} />}
         <Grid
           container
           spacing={4}
@@ -73,21 +75,12 @@ export default function MainView() {
             titles.map((title) => (
               <Grid item xs={12} sm={6} md={4}>
                 <CardView
-                  titleId={1}
-                  imageUrl={
-                    process.env.REACT_APP_DEEZER_IMAGE_URL_PREFIX +
-                    //@ts-ignore
-                    title['md5_image'] +
-                    process.env.REACT_APP_DEEZER_IMAGE_URL_SUFFIX
-                  }
-                  //@ts-ignore
-                  titleText={title['title']}
-                  //@ts-ignore
-                  detailTextLine1={`By ${title['artist']['name']}`}
-                  detailTextLine2={`${Math.round(
-                    //@ts-ignore
-                    parseInt(title['duration']) / 60
-                  )} minutes`}
+                  key={title.uniqueKey as string}
+                  uniqueKey={title.uniqueKey as string}
+                  imageUrl={title.imageUrl}
+                  title={title.description as string}
+                  subtitle1={`by ${title.artistName}`}
+                  subtitle2={title.formatedDuration as string}
                 />
               </Grid>
             ))}

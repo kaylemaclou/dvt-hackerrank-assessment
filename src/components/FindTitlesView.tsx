@@ -40,7 +40,6 @@ export default function FindTitlesView({
           setSearchCriterion(event.target.value);
         }}
         onKeyPress={(event) => {
-          console.log(event.key);
           if (event.key === 'Enter') searchButtonClickHandler(searchCriterion);
         }}
       />
