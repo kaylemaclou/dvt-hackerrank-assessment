@@ -1,5 +1,5 @@
 {
-  "name": "apar-web",
+  "name": "deezer-music-app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -47,7 +47,6 @@
     ]
   },
   "devDependencies": {
-    "@types/yup": "^0.29.8",
     "tslint": "^6.1.3"
   }
 }

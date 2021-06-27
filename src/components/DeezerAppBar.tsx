@@ -142,7 +142,7 @@ export default function DeezerAppBar(props: any) {
               <img
                 className={classes.imageIcon}
                 style={{ width: '10rem' }}
-                src="./images/deezer.png"
+                src="../../../images/deezer.png"
               />
             </Typography>
             <>
